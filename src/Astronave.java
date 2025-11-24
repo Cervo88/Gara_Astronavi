@@ -1,17 +1,17 @@
 import java.util.Scanner;
 
-public class Astronavi extends Thread {
+public class Astronave extends Thread {
     String modello;
     String nome_Partecipante;
     GestoreGara g;
 
 
-    public Astronavi(String modello, String nome_Partecipante) {
+    public Astronave(String modello, String nome_Partecipante) {
         this.modello = modello;
         this.nome_Partecipante = nome_Partecipante;
     }
 
-    public Astronavi(String modello, String nome_Partecipante, GestoreGara g) {
+    public Astronave(String modello, String nome_Partecipante, GestoreGara g) {
 
         this.modello = modello;
         this.nome_Partecipante = nome_Partecipante;
@@ -20,7 +20,7 @@ public class Astronavi extends Thread {
 
     @Override
     public void run() {
-        System.out.println("Astronave:" + this.modello);
+        System.out.println("Astronave:" + this.modello + "id_Partecipante" + this.nome_Partecipante);
 
         gioca();
         try {
