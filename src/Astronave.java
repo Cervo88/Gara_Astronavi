@@ -1,45 +1,49 @@
 import java.util.Scanner;
 
 public class Astronave extends Thread {
-    String modello;
-    String nome_Partecipante;
-    GestoreGara g;
 
+    private String modello;
+    private String nomePartecipante;
+    private GestoreGara g;
 
-    public Astronave(String modello, String nome_Partecipante) {
+    private int distanza = 0;      // metri percorsi
+    private int traguardo = 100;   // fine gara
+
+    public Astronave(String modello, String nomePartecipante, GestoreGara g) {
         this.modello = modello;
-        this.nome_Partecipante = nome_Partecipante;
+        this.nomePartecipante = nomePartecipante;
+        this.g = g;
     }
 
-    public Astronave(String modello, String nome_Partecipante, GestoreGara g) {
+    public int calcolaVelocita() {
+        // esempio semplice: da 1 a 10
+        return (int) (Math.random() * 10) + 1;
+    }
 
-        this.modello = modello;
-        this.nome_Partecipante = nome_Partecipante;
-        this.g = g;
+    public void gioca() {
+        int velocita = calcolaVelocita();
+        distanza += velocita;
+    }
+
+    public void comunica() {
+        System.out.println(nomePartecipante + " ha percorso " + distanza + " metri.");
     }
 
     @Override
     public void run() {
-        System.out.println("Astronave:" + this.modello + "id_Partecipante" + this.nome_Partecipante);
+        System.out.println(nomePartecipante + " parte con una velocità iniziale di " + calcolaVelocita());
 
-        gioca();
-        try {
-            sleep(3000);
-        }catch (InterruptedException e){
-            System.err.println("Errore nella transizione");
+        while (distanza < traguardo) {
+            gioca();        // avanza
+            comunica();     // mostra stato
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                return;     // thread interrotto
+            }
         }
-        System.out.println("Gioco Terminato");
-    }
 
-    public  void gioca() {
-        //chiedere un numero in input
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Inserisci la tua posizione: ");
-        // leggere il numero inserito e assegnarla a una variabile
-        int num = sc.nextInt();
-        g.Verifica(num);
-        //mostrare  in input
-        System.out.println("" + modello + "  Sei nella posizione:" + num);
-
+        System.out.println(nomePartecipante + " ha FINITO!");
     }
 }

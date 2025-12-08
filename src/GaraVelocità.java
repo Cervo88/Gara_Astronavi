@@ -1,30 +1,48 @@
+import GestioneFile.Lettore;
+import GestioneFile.Scrittore;
+import java.util.Scanner;
+
 public class GaraVelocità {
-    public static void main() {
-        System.out.println("Inizia il gioco");
 
-        GestoreGara g = new GestoreGara(1);
+    private static GestoreGara g;
 
-        Astronave a1 = new Astronave("Gtr22" , "Lorenzo", g);
+    public static void main(String[] args) {
 
-        a1. start();
+        // Lettura file
+        Lettore lettore = new Lettore("user.json");
+        lettore.start();
 
-        Astronave a2 = new Astronave("Virtr21" , "Paolo", g);
+        Scanner sc = new Scanner(System.in);
 
-        a2. start();
+        System.out.println("Quanti partecipanti vuoi far gareggiare?");
+        int n = sc.nextInt();
+        sc.nextLine();
 
-        try {
-            a1.join();
-            a2.join();
-        } catch (InterruptedException e) {
-            System.err.println("Errore nella compilazione da Running a Wainting di Thread main");
+        // Inizializzo il gestore gara
+        g = new GestoreGara(n);
+
+        Astronave[] astronavi = new Astronave[n];
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Nome partecipante " + (i + 1) + ": ");
+            String nome = sc.nextLine();
+
+            System.out.println("Modello astronave " + (i + 1) + ": ");
+            String modello = sc.nextLine();
+
+            // creo la nuova astronave
+            astronavi[i] = new Astronave(modello, nome, g);
         }
 
-        try {
-            Thread.sleep(3000);
-        }catch (InterruptedException e){
-            System.err.println("Errore nella transizione");
+        // Avvio tutte le astronavi (thread)
+        for (int i = 0; i < n; i++) {
+            astronavi[i].start();
         }
 
-        System.out.println("Gioco Finito");
+        // Scrittura file di output
+        Scrittore scrittore = new Scrittore("output.csv");
+        Thread th = new Thread(scrittore);
+        th.start();
     }
 }
+

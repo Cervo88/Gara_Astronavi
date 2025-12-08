@@ -1,15 +1,7 @@
 package GestioneFile;
 
-/**
- *
- * @author MC
- * @version 12/01/23
- */
 public class GestioneFile {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
 
         //1)LETTURA

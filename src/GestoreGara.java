@@ -1,16 +1,18 @@
 public class GestoreGara {
-    int posizione;
+    int num_Partecipanti;
 
     public GestoreGara(int posizione) {
-        this.posizione = posizione;
+        this.num_Partecipanti = num_Partecipanti;
+
     }
 
-    public void Verifica(int num) {
-            if (posizione == num) {
-            System.out.println(" HAI VINTO");
-        } else {
-            System.out.println(" HAI PERSO");
-        }
+    public synchronized boolean Verifica(int numero) {
+
+        return numero <= num_Partecipanti;
+    }
+
+    public int getNumPartecipanti() {
+
+        return num_Partecipanti;
     }
 }
-
