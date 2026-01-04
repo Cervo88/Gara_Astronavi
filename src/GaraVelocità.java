@@ -24,7 +24,7 @@ public class GaraVelocità {
         Astronave[] astronavi = new Astronave[n];
 
         for (int i = 0; i < n; i++) {
-            System.out.println("Nome partecipante " + (i + 1) + ": ");
+            System.out.println("Nome partecipante " + (i + 1) + "!: ");
             String nome = sc.nextLine();
 
             System.out.println("Modello astronave " + (i + 1) + ": ");
